@@ -1,0 +1,445 @@
+/* Modern Banking Style Sheet for SecureBank Pro */
+
+/* === MAIN WINDOW === */
+QMainWindow {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+        stop:0 #0f1419, stop:0.5 #1a2332, stop:1 #0f1419);
+    color: #ffffff;
+    font-family: "Inter", "Segoe UI", "Arial", sans-serif;
+}
+
+/* === HEADERS === */
+#GameHeader {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+        stop:0 rgba(30, 50, 80, 0.9),
+        stop:1 rgba(20, 35, 60, 0.9));
+    border: 2px solid rgba(30, 136, 229, 0.3);
+    border-radius: 15px;
+    padding: 20px;
+}
+
+#GameTitle {
+    font-size: 36px;
+    font-weight: 900;
+    color: #FFD700;
+    text-align: center;
+    padding: 10px;
+}
+
+#GameSubtitle {
+    font-size: 16px;
+    color: #b0bec5;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+#PanelTitle {
+    font-size: 18px;
+    font-weight: bold;
+    color: #1e88e5;
+    text-align: center;
+    padding: 10px;
+    background: rgba(30, 136, 229, 0.1);
+    border-radius: 8px;
+    border-left: 4px solid #1e88e5;
+    margin-bottom: 15px;
+}
+
+/* === STAT CARDS === */
+#StatCard {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+        stop:0 rgba(30, 50, 80, 0.9),
+        stop:1 rgba(20, 35, 60, 0.9));
+    border: 2px solid rgba(30, 136, 229, 0.3);
+    border-radius: 12px;
+    padding: 15px;
+    margin: 5px;
+}
+
+#StatCard:hover {
+    border-color: rgba(30, 136, 229, 0.6);
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+        stop:0 rgba(30, 136, 229, 0.1),
+        stop:1 rgba(30, 136, 229, 0.05));
+}
+
+/* === INPUT FIELDS === */
+QLineEdit {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+        stop:0 rgba(40, 60, 90, 0.8),
+        stop:1 rgba(30, 45, 70, 0.8));
+    border: 2px solid rgba(30, 136, 229, 0.3);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 14px;
+    color: #ffffff;
+    font-family: "Fira Code", "Consolas", "Courier New", monospace;
+}
+
+QLineEdit:focus {
+    border: 2px solid #1e88e5;
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+        stop:0 rgba(30, 136, 229, 0.1),
+        stop:1 rgba(30, 136, 229, 0.05));
+}
+
+QLineEdit:hover {
+    border: 2px solid rgba(30, 136, 229, 0.5);
+}
+
+QLineEdit:read-only {
+    background: rgba(45, 60, 80, 0.6);
+    color: #b0bec5;
+    border: 2px solid rgba(176, 190, 197, 0.2);
+}
+
+QTextEdit {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+        stop:0 rgba(40, 60, 90, 0.8),
+        stop:1 rgba(30, 45, 70, 0.8));
+    border: 2px solid rgba(30, 136, 229, 0.3);
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 14px;
+    color: #ffffff;
+    font-family: "Fira Code", "Consolas", "Courier New", monospace;
+}
+
+QTextEdit:focus {
+    border: 2px solid #1e88e5;
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+        stop:0 rgba(30, 136, 229, 0.1),
+        stop:1 rgba(30, 136, 229, 0.05));
+}
+
+/* === BUTTONS === */
+QPushButton {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+        stop:0 #2d5aa0, stop:1 #1e88e5);
+    color: #ffffff;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    min-height: 20px;
+}
+
+QPushButton:hover {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+        stop:0 #3d6bb0, stop:1 #2e98f5);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+QPushButton:pressed {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+        stop:0 #1d4a90, stop:1 #0e78d5);
+}
+
+QPushButton:disabled {
+    background: rgba(100, 100, 100, 0.3);
+    color: rgba(255, 255, 255, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+/* === SPECIALIZED BUTTONS === */
+QPushButton[class="success"] {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+        stop:0 #4caf50, stop:1 #388e3c);
+}
+
+QPushButton[class="success"]:hover {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+        stop:0 #5cbf60, stop:1 #489e4c);
+}
+
+QPushButton[class="danger"] {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+        stop:0 #f44336, stop:1 #d32f2f);
+}
+
+QPushButton[class="warning"] {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+        stop:0 #ff9800, stop:1 #f57c00);
+}
+
+QPushButton[class="info"] {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+        stop:0 #2196f3, stop:1 #1976d2);
+}
+
+/* === GROUP BOXES === */
+QGroupBox {
+    font-weight: bold;
+    border: 2px solid rgba(30, 136, 229, 0.3);
+    border-radius: 12px;
+    margin-top: 15px;
+    padding-top: 15px;
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+        stop:0 rgba(30, 50, 80, 0.5),
+        stop:1 rgba(20, 35, 60, 0.5));
+}
+
+QGroupBox::title {
+    color: #1e88e5;
+    subcontrol-origin: margin;
+    left: 15px;
+    padding: 0 8px 0 8px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+QGroupBox:hover {
+    border-color: rgba(30, 136, 229, 0.5);
+}
+
+/* === TAB WIDGET === */
+QTabWidget::pane {
+    border: 2px solid rgba(30, 136, 229, 0.3);
+    border-radius: 8px;
+    background: rgba(30, 50, 80, 0.3);
+}
+
+QTabBar::tab {
+    background: rgba(30, 50, 80, 0.8);
+    color: #ffffff;
+    padding: 12px 20px;
+    margin-right: 2px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border: 2px solid rgba(30, 136, 229, 0.3);
+    border-bottom: none;
+}
+
+QTabBar::tab:selected {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+        stop:0 #2d5aa0, stop:1 #1e88e5);
+    border-color: #1e88e5;
+}
+
+QTabBar::tab:hover {
+    background: rgba(30, 136, 229, 0.2);
+}
+
+/* === PROGRESS BARS === */
+QProgressBar {
+    background: rgba(30, 40, 60, 0.8);
+    border: 2px solid rgba(30, 136, 229, 0.3);
+    border-radius: 10px;
+    text-align: center;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 12px;
+    height: 20px;
+}
+
+QProgressBar::chunk {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+        stop:0 #4caf50, stop:0.5 #8bc34a, stop:1 #4caf50);
+    border-radius: 8px;
+    margin: 1px;
+}
+
+/* === LIST WIDGETS === */
+QListWidget {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+        stop:0 rgba(30, 45, 70, 0.9),
+        stop:1 rgba(20, 35, 60, 0.9));
+    border: 2px solid rgba(30, 136, 229, 0.3);
+    border-radius: 8px;
+    color: #ffffff;
+    font-size: 13px;
+    padding: 5px;
+}
+
+QListWidget::item {
+    padding: 8px 12px;
+    margin: 2px;
+    border-radius: 5px;
+    background: rgba(30, 136, 229, 0.05);
+}
+
+QListWidget::item:selected {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+        stop:0 #1e88e5, stop:1 #2d5aa0);
+    color: #ffffff;
+    font-weight: bold;
+}
+
+QListWidget::item:hover {
+    background: rgba(30, 136, 229, 0.15);
+}
+
+/* === COMBO BOXES === */
+QComboBox {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+        stop:0 rgba(40, 60, 90, 0.8),
+        stop:1 rgba(30, 45, 70, 0.8));
+    border: 2px solid rgba(30, 136, 229, 0.3);
+    border-radius: 8px;
+    padding: 8px 12px;
+    color: #ffffff;
+    font-size: 14px;
+}
+
+QComboBox:focus {
+    border-color: #1e88e5;
+}
+
+QComboBox::drop-down {
+    border: none;
+    width: 20px;
+}
+
+QComboBox::down-arrow {
+    image: none;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #ffffff;
+}
+
+QComboBox QAbstractItemView {
+    background: rgba(30, 45, 70, 0.95);
+    border: 2px solid rgba(30, 136, 229, 0.5);
+    border-radius: 8px;
+    color: #ffffff;
+    selection-background-color: #1e88e5;
+}
+
+/* === CHECKBOXES === */
+QCheckBox {
+    color: #ffffff;
+    font-size: 14px;
+    spacing: 8px;
+}
+
+QCheckBox::indicator {
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(30, 136, 229, 0.3);
+    border-radius: 4px;
+    background: rgba(40, 60, 90, 0.8);
+}
+
+QCheckBox::indicator:checked {
+    background: #1e88e5;
+    border-color: #1e88e5;
+}
+
+QCheckBox::indicator:hover {
+    border-color: rgba(30, 136, 229, 0.6);
+}
+
+/* === SLIDERS === */
+QSlider::groove:horizontal {
+    border: 1px solid rgba(30, 136, 229, 0.3);
+    height: 8px;
+    background: rgba(40, 60, 90, 0.8);
+    border-radius: 4px;
+}
+
+QSlider::handle:horizontal {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+        stop:0 #2d5aa0, stop:1 #1e88e5);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    width: 20px;
+    margin: -7px 0;
+    border-radius: 10px;
+}
+
+QSlider::handle:horizontal:hover {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+        stop:0 #3d6bb0, stop:1 #2e98f5);
+}
+
+QSlider::sub-page:horizontal {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+        stop:0 #4caf50, stop:1 #8bc34a);
+    border-radius: 4px;
+}
+
+/* === LABELS === */
+QLabel {
+    color: #ffffff;
+    font-size: 14px;
+}
+
+QLabel[class="title"] {
+    font-size: 18px;
+    font-weight: bold;
+    color: #1e88e5;
+}
+
+QLabel[class="subtitle"] {
+    font-size: 16px;
+    color: #b0bec5;
+}
+
+QLabel[class="highlight"] {
+    color: #FFD700;
+    font-weight: bold;
+}
+
+/* === SCROLLBARS === */
+QScrollBar:vertical {
+    background: rgba(30, 40, 60, 0.8);
+    width: 12px;
+    border-radius: 6px;
+}
+
+QScrollBar::handle:vertical {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+        stop:0 #2d5aa0, stop:1 #1e88e5);
+    border-radius: 6px;
+    margin: 2px;
+}
+
+QScrollBar::handle:vertical:hover {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+        stop:0 #3d6bb0, stop:1 #2e98f5);
+}
+
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+    height: 0px;
+}
+
+/* === MESSAGE BOXES === */
+QMessageBox {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+        stop:0 #1e3a5f, stop:1 #0f1419);
+    color: #ffffff;
+    font-size: 14px;
+}
+
+QMessageBox QPushButton {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+        stop:0 #2d5aa0, stop:1 #1e88e5);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-weight: bold;
+    min-width: 80px;
+}
+
+/* === SPECIAL EFFECTS === */
+QWidget[class="glowing"] {
+    border: 2px solid #1e88e5;
+    border-radius: 8px;
+    background: rgba(30, 136, 229, 0.1);
+}
+
+QWidget[class="success"] {
+    border: 2px solid #4caf50;
+    background: rgba(76, 175, 80, 0.1);
+}
+
+QWidget[class="error"] {
+    border: 2px solid #f44336;
+    background: rgba(244, 67, 54, 0.1);
+}
+
+QWidget[class="warning"] {
+    border: 2px solid #ff9800;
+    background: rgba(255, 152, 0, 0.1);
+}

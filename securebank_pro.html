@@ -1,0 +1,2447 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏦 SecureBank Pro - Game Bảo mật Ngân hàng Chuyên nghiệp</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-bank-blue: #003366;
+            --secondary-bank-blue: #004080;
+            --accent-gold: #FFD700;
+            --success-green: #28a745;
+            --danger-red: #dc3545;
+            --warning-orange: #fd7e14;
+            --info-cyan: #17a2b8;
+            --dark-bg: #0a1929;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --text-primary: #ffffff;
+            --text-secondary: #b0bec5;
+            --border-color: rgba(255, 215, 0, 0.2);
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--primary-bank-blue) 25%, var(--secondary-bank-blue) 50%, var(--primary-bank-blue) 75%, var(--dark-bg) 100%);
+            background-size: 400% 400%;
+            animation: bankGradientFlow 12s ease-in-out infinite;
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Enhanced Banking Background Effects */
+        .bank-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .bank-particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--accent-gold);
+            border-radius: 50%;
+            animation: goldParticleFloat 8s ease-in-out infinite;
+            box-shadow: 0 0 10px var(--accent-gold);
+        }
+
+        .digital-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 215, 0, 0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 215, 0, 0.08) 1px, transparent 1px);
+            background-size: 60px 60px;
+            animation: gridPulse 15s linear infinite;
+            z-index: -2;
+        }
+
+        /* Bank Logo Animation */
+        .bank-logo {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 1.5rem;
+            color: var(--accent-gold);
+            text-shadow: 0 0 20px var(--accent-gold);
+            animation: logoPulse 3s ease-in-out infinite;
+            z-index: 1000;
+        }
+
+        /* Main container */
+        .bank-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Enhanced Header */
+        .bank-header {
+            background: linear-gradient(135deg, var(--card-bg) 0%, rgba(255, 215, 0, 0.1) 100%);
+            border: 2px solid var(--border-color);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(15px);
+            box-shadow: 
+                0 15px 35px rgba(0, 51, 102, 0.3),
+                inset 0 1px 0 rgba(255, 215, 0, 0.2);
+            animation: headerGlow 0.8s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bank-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+            animation: headerShine 3s ease-in-out infinite;
+        }
+
+        .bank-title {
+            font-size: 3.2rem;
+            font-weight: 900;
+            text-align: center;
+            background: linear-gradient(45deg, var(--accent-gold), #fff, var(--accent-gold));
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: goldTextFlow 4s ease-in-out infinite;
+            margin-bottom: 15px;
+            text-shadow: 0 0 30px var(--accent-gold);
+        }
+
+        .bank-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        /* Navigation Menu */
+        .nav-menu {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background: linear-gradient(135deg, var(--card-bg) 0%, rgba(255, 215, 0, 0.1) 100%);
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 12px 20px;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            background: linear-gradient(135deg, var(--accent-gold) 0%, #ffa500 100%);
+            color: var(--dark-bg);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.3);
+        }
+
+        /* Game Screens */
+        .game-screen {
+            display: none;
+        }
+
+        .game-screen.active {
+            display: block;
+        }
+
+        /* Enhanced Stats Panel */
+        .stats-panel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--card-bg) 0%, rgba(255, 215, 0, 0.05) 100%);
+            border: 2px solid var(--border-color);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: statCardAppear 0.8s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .stat-card:hover::before {
+            opacity: 1;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: var(--accent-gold);
+            box-shadow: 
+                0 20px 40px rgba(255, 215, 0, 0.2),
+                0 0 30px rgba(255, 215, 0, 0.3);
+        }
+
+        .stat-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            animation: iconBounce 2s infinite ease-in-out;
+            filter: drop-shadow(0 0 10px currentColor);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--accent-gold);
+            margin-bottom: 8px;
+            text-shadow: 0 0 15px var(--accent-gold);
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        /* Game Panels */
+        .game-main {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .game-panel {
+            background: linear-gradient(135deg, var(--card-bg) 0%, rgba(255, 215, 0, 0.03) 100%);
+            border: 2px solid var(--border-color);
+            border-radius: 18px;
+            padding: 25px;
+            backdrop-filter: blur(12px);
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 215, 0, 0.1);
+            animation: panelSlideIn 0.8s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.08), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .game-panel:hover::before {
+            left: 100%;
+        }
+
+        .panel-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--accent-gold);
+            margin-bottom: 20px;
+            text-align: center;
+            padding: 12px;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 10px;
+            border-left: 4px solid var(--accent-gold);
+            text-shadow: 0 0 10px var(--accent-gold);
+        }
+
+        /* Input fields */
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-label {
+            display: block;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .input-field {
+            width: 100%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.03) 100%);
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            padding: 12px 16px;
+            color: var(--text-primary);
+            font-family: 'Fira Code', 'Consolas', monospace;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 215, 0, 0.05) 100%);
+        }
+
+        .input-field:hover {
+            border-color: rgba(255, 215, 0, 0.5);
+        }
+
+        /* Buttons */
+        .btn {
+            background: linear-gradient(135deg, var(--primary-bank-blue) 0%, var(--secondary-bank-blue) 100%);
+            color: var(--text-primary);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 12px 24px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            margin: 5px;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.4);
+            background: linear-gradient(135deg, var(--accent-gold) 0%, #ffa500 100%);
+            color: var(--dark-bg);
+            border-color: var(--accent-gold);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--success-green) 0%, #218838 100%);
+        }
+
+        .btn-success:hover {
+            background: linear-gradient(135deg, #5cbf60 0%, #28a745 100%);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger-red) 0%, #c82333 100%);
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, var(--warning-orange) 0%, #e0a800 100%);
+        }
+
+        .btn-info {
+            background: linear-gradient(135deg, var(--info-cyan) 0%, #138496 100%);
+        }
+
+        /* Mini Game Specific Styles */
+        .mini-game-container {
+            min-height: 400px;
+        }
+
+        .password-strength-meter {
+            width: 100%;
+            height: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .strength-bar {
+            height: 100%;
+            transition: all 0.3s ease;
+            border-radius: 10px;
+        }
+
+        .strength-very-weak { background: #dc3545; width: 20%; }
+        .strength-weak { background: #fd7e14; width: 40%; }
+        .strength-medium { background: #ffc107; width: 60%; }
+        .strength-strong { background: #28a745; width: 80%; }
+        .strength-very-strong { background: #20c997; width: 100%; }
+
+        .phishing-email {
+            background: rgba(220, 53, 69, 0.1);
+            border: 2px solid rgba(220, 53, 69, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            color: var(--text-primary);
+        }
+
+        .safe-email {
+            background: rgba(40, 167, 69, 0.1);
+            border: 2px solid rgba(40, 167, 69, 0.3);
+        }
+
+        .hash-race-timer {
+            font-size: 2rem;
+            color: var(--accent-gold);
+            text-align: center;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+
+        .network-node {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--info-cyan), #138496);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            margin: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .network-node:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px var(--info-cyan);
+        }
+
+        .network-node.infected {
+            background: linear-gradient(135deg, var(--danger-red), #c82333);
+            animation: pulse 1s infinite;
+        }
+
+        .network-node.protected {
+            background: linear-gradient(135deg, var(--success-green), #218838);
+        }
+
+        /* Notifications */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--success-green) 0%, #218838 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.error {
+            background: linear-gradient(135deg, var(--danger-red) 0%, #c82333 100%);
+        }
+
+        .notification.warning {
+            background: linear-gradient(135deg, var(--warning-orange) 0%, #e0a800 100%);
+        }
+
+        /* Animations */
+        @keyframes bankGradientFlow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes goldParticleFloat {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+                opacity: 0.8;
+            }
+        }
+
+        @keyframes gridPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        @keyframes logoPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes headerGlow {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes headerShine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        @keyframes goldTextFlow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes statCardAppear {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes iconBounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        @keyframes panelSlideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .bank-container {
+                padding: 10px;
+            }
+            
+            .bank-title {
+                font-size: 2.5rem;
+            }
+            
+            .game-main {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-panel {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 15px;
+            }
+            
+            .nav-menu {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Quiz specific styles */
+        .quiz-question {
+            background: rgba(23, 162, 184, 0.1);
+            border: 2px solid rgba(23, 162, 184, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .quiz-option {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-option:hover {
+            background: rgba(255, 215, 0, 0.1);
+            border-color: var(--accent-gold);
+        }
+
+        .quiz-option.selected {
+            background: rgba(255, 215, 0, 0.2);
+            border-color: var(--accent-gold);
+        }
+
+        .quiz-option.correct {
+            background: rgba(40, 167, 69, 0.2);
+            border-color: var(--success-green);
+        }
+
+        .quiz-option.incorrect {
+            background: rgba(220, 53, 69, 0.2);
+            border-color: var(--danger-red);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 25px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--success-green) 0%, var(--accent-gold) 100%);
+            border-radius: 12px;
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Effects -->
+    <div class="bank-particles" id="particles"></div>
+    <div class="digital-grid"></div>
+    <div class="bank-logo">🏦 SecureBank</div>
+
+    <!-- Main Container -->
+    <div class="bank-container">
+        <!-- Header -->
+        <div class="bank-header">
+            <h1 class="bank-title">🏦 SecureBank Pro</h1>
+            <p class="bank-subtitle">Game Bảo mật Ngân hàng Chuyên nghiệp với 6 Mini Games</p>
+        </div>
+
+        <!-- Navigation Menu -->
+        <div class="nav-menu">
+            <button class="nav-btn active" onclick="showScreen('main-game')">🏦 Game Chính</button>
+            <button class="nav-btn" onclick="showScreen('password-game')">🔐 Tạo Mật Khẩu</button>
+            <button class="nav-btn" onclick="showScreen('crypto-puzzle')">🧩 Crypto Puzzle</button>
+            <button class="nav-btn" onclick="showScreen('phishing-detect')">🎣 Phát Hiện Phishing</button>
+            <button class="nav-btn" onclick="showScreen('network-security')">🌐 Bảo Mật Mạng</button>
+            <button class="nav-btn" onclick="showScreen('hash-race')">⚡ Hash Race</button>
+            <button class="nav-btn" onclick="showScreen('social-defense')">👥 Phòng Thủ Xã Hội</button>
+        </div>
+
+        <!-- Stats Panel -->
+        <div class="stats-panel">
+            <div class="stat-card">
+                <div class="stat-icon">📊</div>
+                <div class="stat-value" id="totalScore">0</div>
+                <div class="stat-label">Tổng Điểm</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🎯</div>
+                <div class="stat-value" id="currentLevel">1</div>
+                <div class="stat-label">Level Hiện Tại</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🔒</div>
+                <div class="stat-value" id="completedTransactions">0</div>
+                <div class="stat-label">Giao Dịch Hoàn Thành</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🏆</div>
+                <div class="stat-value" id="achievements">0</div>
+                <div class="stat-label">Thành Tích</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">⭐</div>
+                <div class="stat-value" id="streak">0</div>
+                <div class="stat-label">Chuỗi Thắng</div>
+            </div>
+        </div>
+
+        <!-- Main Banking Game Screen -->
+        <div id="main-game" class="game-screen active">
+            <div class="game-main">
+                <!-- Sender Panel -->
+                <div class="game-panel">
+                    <h3 class="panel-title">🏦 Bên Gửi (Ngân Hàng)</h3>
+                    
+                    <div class="input-group">
+                        <label class="input-label">🔑 Khóa AES (256-bit)</label>
+                        <input type="text" id="aesKey" class="input-field" placeholder="Nhập khóa mã hóa AES..." readonly>
+                        <button class="btn btn-info" onclick="generateAESKey()">🔑 Tạo khóa AES</button>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label">💳 Số tài khoản người gửi</label>
+                        <input type="text" id="senderAccount" class="input-field" placeholder="VD: 1234567890123">
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label">💳 Số tài khoản người nhận</label>
+                        <input type="text" id="receiverAccount" class="input-field" placeholder="VD: 9876543210987">
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label">💰 Số tiền (VND)</label>
+                        <input type="number" id="amount" class="input-field" placeholder="VD: 1000000" min="1000">
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label">📝 Nội dung chuyển khoản</label>
+                        <input type="text" id="description" class="input-field" placeholder="VD: Thanh toán hóa đơn">
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label">🔒 Dữ liệu đã mã hóa</label>
+                        <textarea id="encryptedData" class="input-field" rows="4" readonly placeholder="Dữ liệu sẽ được mã hóa tự động..."></textarea>
+                    </div>
+
+                    <button class="btn btn-success" onclick="encryptTransaction()">🔒 Mã hóa dữ liệu</button>
+                    <button class="btn" onclick="sendTransaction()">📨 Gửi giao dịch</button>
+                </div>
+
+                <!-- Receiver Panel -->
+                <div class="game-panel">
+                    <h3 class="panel-title">🏪 Bên Nhận (Merchant)</h3>
+                    
+                    <div class="input-group">
+                        <label class="input-label">🔑 Khóa giải mã AES</label>
+                        <input type="text" id="decryptKey" class="input-field" placeholder="Nhập khóa để giải mã...">
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label">📨 Dữ liệu nhận được</label>
+                        <textarea id="receivedData" class="input-field" rows="4" readonly placeholder="Chờ nhận dữ liệu..."></textarea>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label">🔓 Dữ liệu đã giải mã</label>
+                        <textarea id="decryptedData" class="input-field" rows="6" readonly placeholder="Dữ liệu sẽ được hiển thị sau khi giải mã..."></textarea>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label">📱 Mã OTP (6 chữ số)</label>
+                        <input type="text" id="otpInput" class="input-field" placeholder="Nhập mã OTP..." maxlength="6">
+                        <div style="margin: 10px 0;">
+                            <button class="btn btn-warning" onclick="generateOTP()">📱 Tạo mã OTP</button>
+                            <span id="otpDisplay" style="margin-left: 15px; color: var(--accent-gold); font-weight: bold; font-size: 1.2rem;"></span>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-info" onclick="decryptTransaction()">🔓 Giải mã dữ liệu</button>
+                    <button class="btn btn-success" onclick="verifyTransaction()">✅ Xác thực giao dịch</button>
+                </div>
+
+                <!-- Security Tools Panel -->
+                <div class="game-panel">
+                    <h3 class="panel-title">🛡️ Công cụ Bảo mật</h3>
+                    
+                    <div class="input-group">
+                        <label class="input-label">🔨 Tạo Hash SHA-256</label>
+                        <input type="text" id="hashInput" class="input-field" placeholder="Nhập dữ liệu cần hash...">
+                        <button class="btn btn-info" onclick="generateHash()">🔨 Tạo Hash</button>
+                        <input type="text" id="hashOutput" class="input-field" readonly placeholder="Hash sẽ hiển thị ở đây..." style="margin-top: 10px;">
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label">🔍 Kiểm tra Phishing</label>
+                        <input type="text" id="phishingInput" class="input-field" placeholder="Nhập URL hoặc email để kiểm tra...">
+                        <button class="btn btn-warning" onclick="checkPhishing()">🔍 Kiểm tra Phishing</button>
+                        <div id="phishingResult" style="margin-top: 10px; padding: 10px; border-radius: 8px; display: none;"></div>
+                    </div>
+
+                    <div class="input-group">
+                        <button class="btn btn-success" onclick="exportGameData()">💾 Xuất dữ liệu</button>
+                        <button class="btn btn-info" onclick="importGameData()">📥 Nhập dữ liệu</button>
+                        <input type="file" id="importFile" style="display: none;" accept=".json" onchange="handleImportFile(event)">
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label">📊 Lịch sử giao dịch</label>
+                        <div id="transactionHistory" style="max-height: 150px; overflow-y: auto; background: rgba(0,0,0,0.2); border-radius: 8px; padding: 10px;">
+                            <p style="color: var(--text-secondary); text-align: center;">Chưa có giao dịch nào</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Password Strength Game -->
+        <div id="password-game" class="game-screen">
+            <div class="mini-game-container">
+                <div class="game-panel">
+                    <h3 class="panel-title">🔐 Game Tạo Mật Khẩu Mạnh</h3>
+                    
+                    <div class="input-group">
+                        <label class="input-label">Nhập mật khẩu của bạn:</label>
+                        <input type="password" id="userPassword" class="input-field" placeholder="Tạo mật khẩu mạnh..." oninput="checkPasswordStrength()">
+                        <button class="btn btn-info" onclick="togglePasswordVisibility('userPassword')">👁️ Hiện/Ẩn</button>
+                    </div>
+
+                    <div class="password-strength-meter">
+                        <div id="strengthBar" class="strength-bar"></div>
+                    </div>
+                    
+                    <div id="passwordFeedback" style="margin: 15px 0; color: var(--text-secondary);"></div>
+
+                    <div class="input-group">
+                        <label class="input-label">Tạo mật khẩu tự động:</label>
+                        <div style="display: flex; gap: 10px; margin: 10px 0;">
+                            <label><input type="checkbox" id="includeUppercase" checked> Chữ hoa</label>
+                            <label><input type="checkbox" id="includeLowercase" checked> Chữ thường</label>
+                            <label><input type="checkbox" id="includeNumbers" checked> Số</label>
+                            <label><input type="checkbox" id="includeSymbols" checked> Ký tự đặc biệt</label>
+                        </div>
+                        <div style="display: flex; gap: 10px; align-items: center;">
+                            <label>Độ dài:</label>
+                            <input type="range" id="passwordLength" min="8" max="32" value="12" oninput="updateLengthDisplay()">
+                            <span id="lengthDisplay">12</span>
+                        </div>
+                        <button class="btn btn-success" onclick="generateStrongPassword()">🎲 Tạo mật khẩu</button>
+                        <input type="text" id="generatedPassword" class="input-field" readonly style="margin-top: 10px;">
+                    </div>
+
+                    <div class="input-group">
+                        <h4>🏆 Thử thách mật khẩu:</h4>
+                        <div id="passwordChallenge">
+                            <p>Tạo mật khẩu thỏa mãn các yêu cầu sau:</p>
+                            <ul id="challengeRequirements"></ul>
+                        </div>
+                        <button class="btn btn-warning" onclick="startPasswordChallenge()">🎯 Bắt đầu thử thách</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Crypto Puzzle Game -->
+        <div id="crypto-puzzle" class="game-screen">
+            <div class="mini-game-container">
+                <div class="game-panel">
+                    <h3 class="panel-title">🧩 Game Giải Mã Crypto</h3>
+                    
+                    <div class="input-group">
+                        <label class="input-label">Chọn loại mã hóa:</label>
+                        <select id="cipherType" class="input-field" onchange="generateCryptoPuzzle()">
+                            <option value="caesar">Caesar Cipher</option>
+                            <option value="vigenere">Vigenere Cipher</option>
+                            <option value="reverse">Reverse Text</option>
+                            <option value="base64">Base64 Encoding</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label">Văn bản đã mã hóa:</label>
+                        <textarea id="encryptedPuzzle" class="input-field" rows="4" readonly></textarea>
+                        <div id="puzzleHint" style="margin: 10px 0; color: var(--accent-gold); font-style: italic;"></div>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label">Nhập kết quả giải mã:</label>
+                        <textarea id="puzzleSolution" class="input-field" rows="4" placeholder="Nhập kết quả giải mã..."></textarea>
+                    </div>
+
+                    <div class="input-group">
+                        <button class="btn btn-info" onclick="generateCryptoPuzzle()">🎲 Tạo câu đố mới</button>
+                        <button class="btn btn-success" onclick="checkPuzzleSolution()">✅ Kiểm tra</button>
+                        <button class="btn btn-warning" onclick="showPuzzleHint()">💡 Gợi ý</button>
+                    </div>
+
+                    <div id="puzzleResult" style="margin: 15px 0; padding: 15px; border-radius: 8px; display: none;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Phishing Detection Game -->
+        <div id="phishing-detect" class="game-screen">
+            <div class="mini-game-container">
+                <div class="game-panel">
+                    <h3 class="panel-title">🎣 Game Phát Hiện Phishing</h3>
+                    
+                    <div id="phishingScenario">
+                        <h4>📧 Email cần kiểm tra:</h4>
+                        <div id="phishingEmail" class="phishing-email">
+                            <div id="emailContent">Đang tải email...</div>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label">Đây có phải email phishing không?</label>
+                        <div style="display: flex; gap: 15px; margin: 15px 0;">
+                            <button class="btn btn-danger" onclick="reportPhishing(true)">🚨 Đây là Phishing</button>
+                            <button class="btn btn-success" onclick="reportPhishing(false)">✅ Email An toàn</button>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label">Tại sao bạn nghĩ vậy?</label>
+                        <textarea id="phishingReason" class="input-field" rows="3" placeholder="Giải thích lý do..."></textarea>
+                    </div>
+
+                    <div class="input-group">
+                        <button class="btn btn-info" onclick="loadNewPhishingEmail()">📧 Email mới</button>
+                        <button class="btn btn-warning" onclick="showPhishingTips()">💡 Mẹo phát hiện</button>
+                    </div>
+
+                    <div id="phishingFeedback" style="margin: 15px 0; padding: 15px; border-radius: 8px; display: none;"></div>
+
+                    <div id="phishingTips" style="margin: 15px 0; padding: 15px; background: rgba(23, 162, 184, 0.1); border-radius: 8px; display: none;">
+                        <h4>💡 Mẹo phát hiện email phishing:</h4>
+                        <ul>
+                            <li>Kiểm tra địa chỉ email người gửi</li>
+                            <li>Chú ý đến lỗi chính tả và ngữ pháp</li>
+                            <li>Cảnh giác với các yêu cầu cấp bách</li>
+                            <li>Không click vào link đáng nghi</li>
+                            <li>Xác minh thông tin qua kênh chính thức</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Network Security Game -->
+        <div id="network-security" class="game-screen">
+            <div class="mini-game-container">
+                <div class="game-panel">
+                    <h3 class="panel-title">🌐 Game Bảo Mật Mạng</h3>
+                    
+                    <div class="input-group">
+                        <h4>🖥️ Mạng máy tính của bạn:</h4>
+                        <div id="networkGrid" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin: 20px 0;"></div>
+                    </div>
+
+                    <div class="input-group">
+                        <h4>📊 Trạng thái mạng:</h4>
+                        <div style="display: flex; gap: 20px; margin: 15px 0;">
+                            <div>🟢 An toàn: <span id="safeNodes">0</span></div>
+                            <div>🔴 Bị nhiễm: <span id="infectedNodes">0</span></div>
+                            <div>🛡️ Được bảo vệ: <span id="protectedNodes">0</span></div>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label">Công cụ bảo mật:</label>
+                        <div style="display: flex; gap: 10px; margin: 15px 0;">
+                            <button class="btn btn-info" onclick="deployFirewall()">🔥 Triển khai Firewall</button>
+                            <button class="btn btn-success" onclick="installAntivirus()">🛡️ Cài Antivirus</button>
+                            <button class="btn btn-warning" onclick="updateSecurity()">⚡ Cập nhật Bảo mật</button>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <div style="display: flex; gap: 15px; margin: 15px 0;">
+                            <button class="btn btn-danger" onclick="simulateAttack()">⚠️ Mô phỏng tấn công</button>
+                            <button class="btn btn-success" onclick="startNetworkGame()">🎮 Bắt đầu game</button>
+                            <button class="btn" onclick="resetNetwork()">🔄 Reset mạng</button>
+                        </div>
+                    </div>
+
+                    <div id="networkStatus" style="margin: 15px 0; padding: 15px; border-radius: 8px; background: rgba(0,0,0,0.2);">
+                        <h4>📈 Thống kê game:</h4>
+                        <p>Tấn công đã chặn: <span id="attacksBlocked">0</span></p>
+                        <p>Máy tính cứu được: <span id="computersSaved">0</span></p>
+                        <p>Điểm bảo mật: <span id="securityScore">100</span>/100</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hash Race Game -->
+        <div id="hash-race" class="game-screen">
+            <div class="mini-game-container">
+                <div class="game-panel">
+                    <h3 class="panel-title">⚡ Game Hash Race</h3>
+                    
+                    <div class="input-group">
+                        <h4>🎯 Thử thách hiện tại:</h4>
+                        <div id="hashChallenge" style="background: rgba(255, 215, 0, 0.1); padding: 15px; border-radius: 8px; margin: 15px 0;">
+                            <p>Tìm chuỗi có hash SHA-256 bắt đầu bằng: <strong id="targetPrefix">00</strong></p>
+                        </div>
+                    </div>
+
+                    <div class="hash-race-timer" id="hashTimer">00:00</div>
+
+                    <div class="input-group">
+                        <label class="input-label">Nhập chuỗi để thử:</label>
+                        <input type="text" id="hashInput" class="input-field" placeholder="Nhập chuỗi bất kỳ...">
+                        <button class="btn btn-info" onclick="calculateHash()">🔨 Tính Hash</button>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label">Hash SHA-256:</label>
+                        <input type="text" id="hashResult" class="input-field" readonly>
+                    </div>
+
+                    <div class="input-group">
+                        <div style="display: flex; gap: 15px; margin: 15px 0;">
+                            <button class="btn btn-success" onclick="startHashRace()">🏁 Bắt đầu cuộc đua</button>
+                            <button class="btn btn-warning" onclick="autoHashSearch()">🤖 Tìm kiếm tự động</button>
+                            <button class="btn btn-danger" onclick="stopHashRace()">⏹️ Dừng</button>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <h4>📊 Thống kê:</h4>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin: 15px 0;">
+                            <div>Lần thử: <span id="hashAttempts">0</span></div>
+                            <div>Thành công: <span id="hashSuccesses">0</span></div>
+                            <div>Thời gian nhanh nhất: <span id="bestTime">--</span></div>
+                            <div>Hash/giây: <span id="hashRate">0</span></div>
+                        </div>
+                    </div>
+
+                    <div id="hashHistory" style="max-height: 200px; overflow-y: auto; background: rgba(0,0,0,0.2); border-radius: 8px; padding: 10px; margin: 15px 0;">
+                        <h4>🏆 Lịch sử thành công:</h4>
+                        <div id="successfulHashes">Chưa có hash nào thành công</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Social Engineering Defense Game -->
+        <div id="social-defense" class="game-screen">
+            <div class="mini-game-container">
+                <div class="game-panel">
+                    <h3 class="panel-title">👥 Game Phòng Thủ Kỹ Thuật Xã Hội</h3>
+                    
+                    <div id="socialScenario">
+                        <h4>📞 Tình huống:</h4>
+                        <div id="scenarioContent" style="background: rgba(255, 193, 7, 0.1); padding: 20px; border-radius: 8px; margin: 15px 0; border-left: 4px solid var(--warning-orange);">
+                            Đang tải tình huống...
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <h4>🤔 Bạn sẽ phản ứng như thế nào?</h4>
+                        <div id="socialOptions" style="display: grid; gap: 10px; margin: 15px 0;">
+                            <!-- Options will be loaded dynamically -->
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <button class="btn btn-info" onclick="loadNewSocialScenario()">🔄 Tình huống mới</button>
+                        <button class="btn btn-warning" onclick="showSocialTips()">💡 Mẹo phòng thủ</button>
+                    </div>
+
+                    <div id="socialFeedback" style="margin: 15px 0; padding: 15px; border-radius: 8px; display: none;"></div>
+
+                    <div id="socialTips" style="margin: 15px 0; padding: 15px; background: rgba(40, 167, 69, 0.1); border-radius: 8px; display: none;">
+                        <h4>💡 Mẹo phòng thủ kỹ thuật xã hội:</h4>
+                        <ul>
+                            <li>Luôn xác minh danh tính người liên lạc</li>
+                            <li>Không cung cấp thông tin cá nhân qua điện thoại</li>
+                            <li>Cảnh giác với các yêu cầu khẩn cấp</li>
+                            <li>Kiểm tra thông tin qua kênh chính thức</li>
+                            <li>Báo cáo các cuộc gọi đáng nghi</li>
+                            <li>Không click vào link từ người lạ</li>
+                        </ul>
+                    </div>
+
+                    <div class="input-group">
+                        <h4>📈 Thống kê phòng thủ:</h4>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin: 15px 0;">
+                            <div>Tấn công đã phát hiện: <span id="attacksDetected">0</span></div>
+                            <div>Quyết định đúng: <span id="correctDecisions">0</span></div>
+                            <div>Tỷ lệ thành công: <span id="successRate">0%</span></div>
+                            <div>Mức độ cảnh giác: <span id="alertLevel">Bình thường</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Container -->
+    <div id="notification" class="notification"></div>
+
+    <script>
+        // Game State Management
+        const gameState = {
+            totalScore: 0,
+            currentLevel: 1,
+            completedTransactions: 0,
+            achievements: 0,
+            streak: 0,
+            currentAESKey: '',
+            currentOTP: '',
+            transactionHistory: [],
+            
+            // Mini Games Stats
+            passwordChallenges: 0,
+            cryptoSolved: 0,
+            phishingDetected: 0,
+            networkDefended: 0,
+            hashesFound: 0,
+            socialDefended: 0
+        };
+
+        // Initialize game on load
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            updateStatsDisplay();
+            loadGameState();
+            startPasswordChallenge();
+            loadNewPhishingEmail();
+            startNetworkGame();
+            loadNewSocialScenario();
+        });
+
+        // Particle Animation System
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'bank-particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 8 + 's';
+                particle.style.animationDuration = (Math.random() * 4 + 6) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Screen Navigation
+        function showScreen(screenId) {
+            // Hide all screens
+            const screens = document.querySelectorAll('.game-screen');
+            screens.forEach(screen => screen.classList.remove('active'));
+            
+            // Show selected screen
+            document.getElementById(screenId).classList.add('active');
+            
+            // Update nav buttons
+            const navButtons = document.querySelectorAll('.nav-btn');
+            navButtons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        // Stats Management
+        function updateStatsDisplay() {
+            document.getElementById('totalScore').textContent = gameState.totalScore;
+            document.getElementById('currentLevel').textContent = gameState.currentLevel;
+            document.getElementById('completedTransactions').textContent = gameState.completedTransactions;
+            document.getElementById('achievements').textContent = gameState.achievements;
+            document.getElementById('streak').textContent = gameState.streak;
+        }
+
+        function addScore(points, reason = '') {
+            gameState.totalScore += points;
+            updateStatsDisplay();
+            showNotification(`+${points} điểm! ${reason}`, 'success');
+            saveGameState();
+        }
+
+        // Notification System
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = `notification ${type} show`;
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Main Banking Game Functions
+        function generateAESKey() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let key = '';
+            for (let i = 0; i < 32; i++) {
+                key += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            gameState.currentAESKey = key;
+            document.getElementById('aesKey').value = key;
+            addScore(10, 'Tạo khóa AES thành công');
+        }
+
+        async function encryptTransaction() {
+            const senderAccount = document.getElementById('senderAccount').value;
+            const receiverAccount = document.getElementById('receiverAccount').value;
+            const amount = document.getElementById('amount').value;
+            const description = document.getElementById('description').value;
+            const aesKey = document.getElementById('aesKey').value;
+
+            if (!senderAccount || !receiverAccount || !amount || !description || !aesKey) {
+                showNotification('Vui lòng điền đầy đủ thông tin!', 'error');
+                return;
+            }
+
+            // Validate account numbers
+            if (!/^\d{9,12}$/.test(senderAccount) || !/^\d{9,12}$/.test(receiverAccount)) {
+                showNotification('Số tài khoản phải có 9-12 chữ số!', 'error');
+                return;
+            }
+
+            // Validate amount
+            if (amount < 1000) {
+                showNotification('Số tiền tối thiểu là 1,000 VND!', 'error');
+                return;
+            }
+
+            const transactionData = {
+                sender: senderAccount,
+                receiver: receiverAccount,
+                amount: parseInt(amount),
+                description: description,
+                timestamp: new Date().toISOString()
+            };
+
+            try {
+                const encrypted = await encryptAES(JSON.stringify(transactionData), aesKey);
+                document.getElementById('encryptedData').value = encrypted;
+                addScore(20, 'Mã hóa giao dịch thành công');
+                showNotification('Dữ liệu đã được mã hóa thành công!', 'success');
+            } catch (error) {
+                showNotification('Lỗi mã hóa: ' + error.message, 'error');
+            }
+        }
+
+        function sendTransaction() {
+            const encryptedData = document.getElementById('encryptedData').value;
+            if (!encryptedData) {
+                showNotification('Vui lòng mã hóa dữ liệu trước khi gửi!', 'error');
+                return;
+            }
+
+            document.getElementById('receivedData').value = encryptedData;
+            addScore(15, 'Gửi giao dịch thành công');
+            showNotification('Giao dịch đã được gửi!', 'success');
+        }
+
+        async function decryptTransaction() {
+            const encryptedData = document.getElementById('receivedData').value;
+            const decryptKey = document.getElementById('decryptKey').value;
+
+            if (!encryptedData || !decryptKey) {
+                showNotification('Vui lòng nhập dữ liệu và khóa giải mã!', 'error');
+                return;
+            }
+
+            try {
+                const decrypted = await decryptAES(encryptedData, decryptKey);
+                document.getElementById('decryptedData').value = decrypted;
+                addScore(30, 'Giải mã thành công');
+                showNotification('Dữ liệu đã được giải mã thành công!', 'success');
+            } catch (error) {
+                showNotification('Lỗi giải mã: Khóa không chính xác!', 'error');
+            }
+        }
+
+        function generateOTP() {
+            const otp = Math.floor(100000 + Math.random() * 900000).toString();
+            gameState.currentOTP = otp;
+            document.getElementById('otpDisplay').textContent = `Mã OTP: ${otp}`;
+            
+            // Auto expire OTP after 2 minutes
+            setTimeout(() => {
+                document.getElementById('otpDisplay').textContent = 'Mã OTP đã hết hạn';
+                gameState.currentOTP = '';
+            }, 120000);
+            
+            showNotification('Mã OTP đã được tạo!', 'success');
+        }
+
+        function verifyTransaction() {
+            const otpInput = document.getElementById('otpInput').value;
+            const decryptedData = document.getElementById('decryptedData').value;
+
+            if (!decryptedData) {
+                showNotification('Vui lòng giải mã dữ liệu trước!', 'error');
+                return;
+            }
+
+            if (!otpInput) {
+                showNotification('Vui lòng nhập mã OTP!', 'error');
+                return;
+            }
+
+            if (otpInput !== gameState.currentOTP) {
+                showNotification('Mã OTP không chính xác!', 'error');
+                return;
+            }
+
+            // Transaction successful
+            gameState.completedTransactions++;
+            gameState.streak++;
+            const bonusPoints = 100 + (gameState.currentLevel * 20) + (gameState.streak * 10);
+            addScore(bonusPoints, `Hoàn thành giao dịch (Level ${gameState.currentLevel})`);
+            
+            // Add to history
+            const transaction = {
+                id: gameState.completedTransactions,
+                timestamp: new Date().toLocaleString('vi-VN'),
+                data: decryptedData,
+                level: gameState.currentLevel
+            };
+            gameState.transactionHistory.push(transaction);
+            updateTransactionHistory();
+            
+            // Level up check
+            if (gameState.completedTransactions % 5 === 0) {
+                levelUp();
+            }
+
+            showNotification('🎉 Giao dịch hoàn thành thành công!', 'success');
+            
+            // Reset form
+            setTimeout(resetTransactionForm, 2000);
+        }
+
+        function levelUp() {
+            gameState.currentLevel++;
+            gameState.achievements++;
+            addScore(gameState.currentLevel * 50, `Lên cấp ${gameState.currentLevel}!`);
+            showNotification(`🆙 Chúc mừng! Bạn đã lên Level ${gameState.currentLevel}!`, 'success');
+        }
+
+        function resetTransactionForm() {
+            // Clear all input fields
+            document.getElementById('senderAccount').value = '';
+            document.getElementById('receiverAccount').value = '';
+            document.getElementById('amount').value = '';
+            document.getElementById('description').value = '';
+            document.getElementById('encryptedData').value = '';
+            document.getElementById('receivedData').value = '';
+            document.getElementById('decryptedData').value = '';
+            document.getElementById('decryptKey').value = '';
+            document.getElementById('otpInput').value = '';
+            document.getElementById('otpDisplay').textContent = '';
+            
+            // Generate new AES key for next transaction
+            generateAESKey();
+        }
+
+        function updateTransactionHistory() {
+            const historyContainer = document.getElementById('transactionHistory');
+            if (gameState.transactionHistory.length === 0) {
+                historyContainer.innerHTML = '<p style="color: var(--text-secondary); text-align: center;">Chưa có giao dịch nào</p>';
+                return;
+            }
+
+            let historyHTML = '';
+            gameState.transactionHistory.slice(-5).reverse().forEach(transaction => {
+                historyHTML += `
+                    <div style="background: rgba(40, 167, 69, 0.1); padding: 10px; margin: 5px 0; border-radius: 5px; border-left: 3px solid var(--success-green);">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                            <strong>Giao dịch #${transaction.id}</strong>
+                            <span style="color: var(--text-secondary); font-size: 0.9rem;">Level ${transaction.level}</span>
+                        </div>
+                        <div style="font-size: 0.85rem; color: var(--text-secondary);">${transaction.timestamp}</div>
+                    </div>
+                `;
+            });
+            historyContainer.innerHTML = historyHTML;
+        }
+
+        // Security Tools
+        async function generateHash() {
+            const input = document.getElementById('hashInput').value;
+            if (!input) {
+                showNotification('Vui lòng nhập dữ liệu để hash!', 'error');
+                return;
+            }
+
+            try {
+                const hash = await createSHA256Hash(input);
+                document.getElementById('hashOutput').value = hash;
+                addScore(5, 'Tạo hash thành công');
+                showNotification('Hash đã được tạo!', 'success');
+            } catch (error) {
+                showNotification('Lỗi tạo hash: ' + error.message, 'error');
+            }
+        }
+
+        function checkPhishing() {
+            const input = document.getElementById('phishingInput').value;
+            if (!input) {
+                showNotification('Vui lòng nhập URL hoặc email để kiểm tra!', 'error');
+                return;
+            }
+
+            const result = detectPhishing(input);
+            const resultDiv = document.getElementById('phishingResult');
+            
+            resultDiv.style.display = 'block';
+            if (result.isSuspicious) {
+                resultDiv.style.background = 'rgba(220, 53, 69, 0.2)';
+                resultDiv.style.border = '2px solid var(--danger-red)';
+                resultDiv.innerHTML = `
+                    <h4 style="color: var(--danger-red);">⚠️ CẢNH BÁO: Đáng nghi!</h4>
+                    <p>Mức độ nguy hiểm: <strong>${result.riskLevel}</strong></p>
+                    <p>Điểm nguy hiểm: ${result.riskScore}/100</p>
+                    <ul>${result.warnings.map(w => `<li>${w}</li>`).join('')}</ul>
+                `;
+                addScore(20, 'Phát hiện phishing');
+            } else {
+                resultDiv.style.background = 'rgba(40, 167, 69, 0.2)';
+                resultDiv.style.border = '2px solid var(--success-green)';
+                resultDiv.innerHTML = `
+                    <h4 style="color: var(--success-green);">✅ An toàn</h4>
+                    <p>URL/Email này có vẻ an toàn</p>
+                    <p>Điểm nguy hiểm: ${result.riskScore}/100</p>
+                `;
+                addScore(10, 'Kiểm tra bảo mật');
+            }
+        }
+
+        // Data Import/Export
+        function exportGameData() {
+            const data = {
+                gameState: gameState,
+                timestamp: new Date().toISOString(),
+                version: '1.0'
+            };
+            
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `securebank_pro_save_${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            showNotification('Dữ liệu đã được xuất!', 'success');
+        }
+
+        function importGameData() {
+            document.getElementById('importFile').click();
+        }
+
+        function handleImportFile(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    if (data.gameState) {
+                        Object.assign(gameState, data.gameState);
+                        updateStatsDisplay();
+                        updateTransactionHistory();
+                        showNotification('Dữ liệu đã được nhập thành công!', 'success');
+                        saveGameState();
+                    } else {
+                        throw new Error('Định dạng file không hợp lệ');
+                    }
+                } catch (error) {
+                    showNotification('Lỗi đọc file: ' + error.message, 'error');
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        // Game State Persistence
+        function saveGameState() {
+            localStorage.setItem('secureBankPro_gameState', JSON.stringify(gameState));
+        }
+
+        function loadGameState() {
+            const saved = localStorage.getItem('secureBankPro_gameState');
+            if (saved) {
+                try {
+                    Object.assign(gameState, JSON.parse(saved));
+                    updateStatsDisplay();
+                    updateTransactionHistory();
+                } catch (error) {
+                    console.error('Error loading game state:', error);
+                }
+            }
+        }
+
+        // ===========================================
+        // MINI GAMES IMPLEMENTATION
+        // ===========================================
+
+        // 1. Password Strength Game
+        function checkPasswordStrength() {
+            const password = document.getElementById('userPassword').value;
+            const result = calculatePasswordStrength(password);
+            
+            const strengthBar = document.getElementById('strengthBar');
+            const feedback = document.getElementById('passwordFeedback');
+            
+            // Update strength bar
+            strengthBar.className = `strength-bar strength-${result.strength.toLowerCase().replace(' ', '-')}`;
+            
+            // Update feedback
+            feedback.innerHTML = `
+                <h4>Độ mạnh: ${result.strength} (${result.score}/100)</h4>
+                ${result.feedback.length > 0 ? '<ul>' + result.feedback.map(f => `<li>${f}</li>`).join('') + '</ul>' : '<p>✅ Mật khẩu rất tốt!</p>'}
+            `;
+        }
+
+        function calculatePasswordStrength(password) {
+            let score = 0;
+            let feedback = [];
+            
+            // Length check
+            if (password.length >= 12) score += 25;
+            else if (password.length >= 8) {
+                score += 15;
+                feedback.push('Nên dùng ít nhất 12 ký tự');
+            } else {
+                feedback.push('Mật khẩu quá ngắn (cần ít nhất 8 ký tự)');
+            }
+            
+            // Character type checks
+            if (/[A-Z]/.test(password)) score += 20;
+            else feedback.push('Cần có chữ hoa');
+            
+            if (/[a-z]/.test(password)) score += 20;
+            else feedback.push('Cần có chữ thường');
+            
+            if (/\d/.test(password)) score += 20;
+            else feedback.push('Cần có số');
+            
+            if (/[!@#$%^&*()_+\-=\[\]{}|;:,.<>?]/.test(password)) score += 15;
+            else feedback.push('Nên có ký tự đặc biệt');
+            
+            // Determine strength
+            let strength;
+            if (score >= 90) strength = 'Very Strong';
+            else if (score >= 70) strength = 'Strong';
+            else if (score >= 50) strength = 'Medium';
+            else if (score >= 30) strength = 'Weak';
+            else strength = 'Very Weak';
+            
+            return { score, strength, feedback };
+        }
+
+        function togglePasswordVisibility(inputId) {
+            const input = document.getElementById(inputId);
+            input.type = input.type === 'password' ? 'text' : 'password';
+        }
+
+        function updateLengthDisplay() {
+            const length = document.getElementById('passwordLength').value;
+            document.getElementById('lengthDisplay').textContent = length;
+        }
+
+        function generateStrongPassword() {
+            const length = parseInt(document.getElementById('passwordLength').value);
+            const includeUppercase = document.getElementById('includeUppercase').checked;
+            const includeLowercase = document.getElementById('includeLowercase').checked;
+            const includeNumbers = document.getElementById('includeNumbers').checked;
+            const includeSymbols = document.getElementById('includeSymbols').checked;
+            
+            const password = createStrongPassword(length, includeUppercase, includeLowercase, includeNumbers, includeSymbols);
+            document.getElementById('generatedPassword').value = password;
+            addScore(15, 'Tạo mật khẩu mạnh');
+        }
+
+        function createStrongPassword(length, upper, lower, numbers, symbols) {
+            let chars = '';
+            let password = [];
+            
+            if (lower) {
+                chars += 'abcdefghijklmnopqrstuvwxyz';
+                password.push('abcdefghijklmnopqrstuvwxyz'[Math.floor(Math.random() * 26)]);
+            }
+            if (upper) {
+                chars += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                password.push('ABCDEFGHIJKLMNOPQRSTUVWXYZ'[Math.floor(Math.random() * 26)]);
+            }
+            if (numbers) {
+                chars += '0123456789';
+                password.push('0123456789'[Math.floor(Math.random() * 10)]);
+            }
+            if (symbols) {
+                const symbolChars = '!@#$%^&*()_+-=[]{}|;:,.<>?';
+                chars += symbolChars;
+                password.push(symbolChars[Math.floor(Math.random() * symbolChars.length)]);
+            }
+            
+            // Fill remaining length
+            for (let i = password.length; i < length; i++) {
+                password.push(chars[Math.floor(Math.random() * chars.length)]);
+            }
+            
+            // Shuffle password
+            for (let i = password.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [password[i], password[j]] = [password[j], password[i]];
+            }
+            
+            return password.join('');
+        }
+
+        function startPasswordChallenge() {
+            const challenges = [
+                'Tạo mật khẩu có ít nhất 10 ký tự với chữ hoa, chữ thường và số',
+                'Tạo mật khẩu mạnh không chứa từ trong từ điển',
+                'Tạo mật khẩu có ít nhất 12 ký tự với tất cả loại ký tự',
+                'Tạo mật khẩu dễ nhớ nhưng khó đoán'
+            ];
+            
+            const requirements = [
+                ['Ít nhất 10 ký tự', 'Có chữ hoa', 'Có chữ thường', 'Có số'],
+                ['Ít nhất 8 ký tự', 'Không chứa từ thông dụng', 'Có ký tự đặc biệt'],
+                ['Ít nhất 12 ký tự', 'Có tất cả loại ký tự', 'Điểm mạnh > 80'],
+                ['Dễ nhớ', 'Khó đoán', 'An toàn cao']
+            ];
+            
+            const challengeIndex = Math.floor(Math.random() * challenges.length);
+            const requirementsList = document.getElementById('challengeRequirements');
+            
+            requirementsList.innerHTML = requirements[challengeIndex]
+                .map(req => `<li>${req}</li>`).join('');
+        }
+
+        // 2. Crypto Puzzle Game
+        const cryptoPuzzles = {
+            caesar: {
+                name: 'Caesar Cipher',
+                generate: () => {
+                    const texts = [
+                        'HELLO WORLD',
+                        'SECURITY FIRST',
+                        'CRYPTOGRAPHY IS AMAZING',
+                        'PROTECT YOUR DATA',
+                        'BLOCKCHAIN TECHNOLOGY'
+                    ];
+                    const text = texts[Math.floor(Math.random() * texts.length)];
+                    const shift = Math.floor(Math.random() * 25) + 1;
+                    const encrypted = caesarCipher(text, shift);
+                    return {
+                        original: text,
+                        encrypted: encrypted,
+                        hint: `Caesar cipher với shift = ${shift}`,
+                        shift: shift
+                    };
+                }
+            },
+            vigenere: {
+                name: 'Vigenere Cipher',
+                generate: () => {
+                    const texts = ['CYBER SECURITY', 'ENCRYPTION KEY', 'DIGITAL SIGNATURE'];
+                    const keys = ['BANK', 'SAFE', 'GOLD', 'LOCK'];
+                    const text = texts[Math.floor(Math.random() * texts.length)];
+                    const key = keys[Math.floor(Math.random() * keys.length)];
+                    const encrypted = vigenereCipher(text, key);
+                    return {
+                        original: text,
+                        encrypted: encrypted,
+                        hint: `Vigenere cipher với khóa = ${key}`,
+                        key: key
+                    };
+                }
+            },
+            reverse: {
+                name: 'Reverse Text',
+                generate: () => {
+                    const texts = ['BANKING SECURITY', 'SECURE TRANSACTION', 'FINANCIAL PROTECTION'];
+                    const text = texts[Math.floor(Math.random() * texts.length)];
+                    const encrypted = text.split('').reverse().join('');
+                    return {
+                        original: text,
+                        encrypted: encrypted,
+                        hint: 'Văn bản đã được đảo ngược',
+                        key: null
+                    };
+                }
+            },
+            base64: {
+                name: 'Base64 Encoding',
+                generate: () => {
+                    const texts = ['SECRET MESSAGE', 'CONFIDENTIAL DATA', 'PRIVATE INFORMATION'];
+                    const text = texts[Math.floor(Math.random() * texts.length)];
+                    const encrypted = btoa(text);
+                    return {
+                        original: text,
+                        encrypted: encrypted,
+                        hint: 'Dữ liệu được mã hóa Base64',
+                        key: null
+                    };
+                }
+            }
+        };
+
+        let currentPuzzle = null;
+
+        function generateCryptoPuzzle() {
+            const cipherType = document.getElementById('cipherType').value;
+            currentPuzzle = cryptoPuzzles[cipherType].generate();
+            
+            document.getElementById('encryptedPuzzle').value = currentPuzzle.encrypted;
+            document.getElementById('puzzleHint').textContent = '';
+            document.getElementById('puzzleSolution').value = '';
+            document.getElementById('puzzleResult').style.display = 'none';
+        }
+
+        function checkPuzzleSolution() {
+            if (!currentPuzzle) {
+                showNotification('Vui lòng tạo câu đố trước!', 'error');
+                return;
+            }
+            
+            const userSolution = document.getElementById('puzzleSolution').value.toUpperCase().trim();
+            const correctSolution = currentPuzzle.original.toUpperCase();
+            
+            const resultDiv = document.getElementById('puzzleResult');
+            resultDiv.style.display = 'block';
+            
+            if (userSolution === correctSolution) {
+                resultDiv.style.background = 'rgba(40, 167, 69, 0.2)';
+                resultDiv.style.border = '2px solid var(--success-green)';
+                resultDiv.innerHTML = `
+                    <h4 style="color: var(--success-green);">🎉 Chính xác!</h4>
+                    <p>Bạn đã giải mã thành công: <strong>${correctSolution}</strong></p>
+                `;
+                gameState.cryptoSolved++;
+                addScore(30, 'Giải mã thành công');
+            } else {
+                resultDiv.style.background = 'rgba(220, 53, 69, 0.2)';
+                resultDiv.style.border = '2px solid var(--danger-red)';
+                resultDiv.innerHTML = `
+                    <h4 style="color: var(--danger-red);">❌ Chưa đúng</h4>
+                    <p>Kết quả của bạn: <strong>${userSolution}</strong></p>
+                    <p>Hãy thử lại hoặc xem gợi ý!</p>
+                `;
+            }
+        }
+
+        function showPuzzleHint() {
+            if (!currentPuzzle) {
+                showNotification('Vui lòng tạo câu đố trước!', 'error');
+                return;
+            }
+            
+            document.getElementById('puzzleHint').textContent = currentPuzzle.hint;
+            addScore(5, 'Xem gợi ý');
+        }
+
+        // Cipher implementations
+        function caesarCipher(text, shift) {
+            return text.split('').map(char => {
+                if (char.match(/[A-Z]/)) {
+                    return String.fromCharCode((char.charCodeAt(0) - 65 + shift) % 26 + 65);
+                }
+                return char;
+            }).join('');
+        }
+
+        function vigenereCipher(text, key) {
+            let result = '';
+            let keyIndex = 0;
+            
+            for (let i = 0; i < text.length; i++) {
+                const char = text[i];
+                if (char.match(/[A-Z]/)) {
+                    const textCode = char.charCodeAt(0) - 65;
+                    const keyCode = key[keyIndex % key.length].charCodeAt(0) - 65;
+                    const encryptedCode = (textCode + keyCode) % 26;
+                    result += String.fromCharCode(encryptedCode + 65);
+                    keyIndex++;
+                } else {
+                    result += char;
+                }
+            }
+            return result;
+        }
+
+        // 3. Phishing Detection Game
+        const phishingEmails = [
+            {
+                isPhishing: true,
+                content: `
+                    <h3>🚨 CẢNH BÁO BẢO MẬT KHẨN CẤP</h3>
+                    <p><strong>Từ:</strong> security@vietcombannk.com</p>
+                    <p><strong>Tiêu đề:</strong> Tài khoản của bạn sẽ bị khóa trong 24 giờ!</p>
+                    <p>Chào bạn,</p>
+                    <p>Chúng tôi phát hiện hoạt động đáng ngờ trong tài khoản của bạn. Vui lòng CLICK VÀO ĐÂY để xác minh danh tính ngay lập tức, nếu không tài khoản sẽ bị khóa vĩnh viễn!</p>
+                    <p><a href="http://vietcombank-security.tk/verify">Xác minh tài khoản ngay</a></p>
+                    <p>Trân trọng,<br>Đội ngũ bảo mật VietComBank</p>
+                `,
+                reasons: ['Email giả mạo thương hiệu ngân hàng', 'Domain lạ (.tk)', 'Tạo cảm giác khẩn cấp', 'Yêu cầu click link đáng ngờ']
+            },
+            {
+                isPhishing: false,
+                content: `
+                    <h3>📧 Thông báo giao dịch</h3>
+                    <p><strong>Từ:</strong> no-reply@vietcombank.com.vn</p>
+                    <p><strong>Tiêu đề:</strong> Biên lai giao dịch #VCB20241215001</p>
+                    <p>Kính gửi Quý khách,</p>
+                    <p>Tài khoản của Quý khách vừa có giao dịch:</p>
+                    <ul>
+                        <li>Số tiền: 500,000 VND</li>
+                        <li>Thời gian: 15/12/2024 14:30</li>
+                        <li>Nội dung: Thanh toán hóa đơn điện</li>
+                    </ul>
+                    <p>Để biết thêm chi tiết, Quý khách vui lòng đăng nhập vào ứng dụng VCB Digibank.</p>
+                    <p>Trân trọng!</p>
+                `,
+                reasons: ['Email chính thức từ ngân hàng', 'Domain chính thức', 'Không yêu cầu thông tin nhạy cảm', 'Hướng dẫn đăng nhập qua app chính thức']
+            },
+            {
+                isPhishing: true,
+                content: `
+                    <h3>🎉 CHÚC MỪNG! BẠN ĐÃ TRÚNG THƯỞNG!</h3>
+                    <p><strong>Từ:</strong> promo@techcombank-vn.info</p>
+                    <p><strong>Tiêu đề:</strong> Bạn đã trúng 50,000,000 VND!</p>
+                    <p>Xin chúc mừng!</p>
+                    <p>Bạn đã được chọn ngẫu nhiên trong chương trình khuyến mại của TechcomBank và trúng giải thưởng 50 triệu VND!</p>
+                    <p>Để nhận thưởng, vui lòng cung cấp thông tin sau:</p>
+                    <ul>
+                        <li>Số tài khoản</li>
+                        <li>Số CMND/CCCD</li>
+                        <li>Mã pin ATM</li>
+                    </ul>
+                    <p>Phần thưởng sẽ được chuyển trong 24h!</p>
+                `,
+                reasons: ['Giả mạo thương hiệu ngân hàng', 'Quá tốt để là thật', 'Yêu cầu thông tin nhạy cảm', 'Domain giả mạo']
+            }
+        ];
+
+        let currentPhishingEmail = null;
+
+        function loadNewPhishingEmail() {
+            currentPhishingEmail = phishingEmails[Math.floor(Math.random() * phishingEmails.length)];
+            document.getElementById('emailContent').innerHTML = currentPhishingEmail.content;
+            document.getElementById('phishingFeedback').style.display = 'none';
+            document.getElementById('phishingReason').value = '';
+            
+            // Reset email styling
+            const emailDiv = document.getElementById('phishingEmail');
+            emailDiv.className = 'phishing-email';
+        }
+
+        function reportPhishing(isPhishing) {
+            if (!currentPhishingEmail) return;
+            
+            const feedback = document.getElementById('phishingFeedback');
+            const emailDiv = document.getElementById('phishingEmail');
+            const userReason = document.getElementById('phishingReason').value;
+            
+            feedback.style.display = 'block';
+            
+            if (isPhishing === currentPhishingEmail.isPhishing) {
+                // Correct answer
+                feedback.style.background = 'rgba(40, 167, 69, 0.2)';
+                feedback.style.border = '2px solid var(--success-green)';
+                feedback.innerHTML = `
+                    <h4 style="color: var(--success-green);">✅ Chính xác!</h4>
+                    <p>Bạn đã ${isPhishing ? 'phát hiện đúng email phishing' : 'xác định đúng email an toàn'}!</p>
+                    <h5>Lý do:</h5>
+                    <ul>${currentPhishingEmail.reasons.map(r => `<li>${r}</li>`).join('')}</ul>
+                    ${userReason ? `<p><strong>Nhận xét của bạn:</strong> ${userReason}</p>` : ''}
+                `;
+                
+                if (isPhishing) {
+                    gameState.phishingDetected++;
+                    addScore(25, 'Phát hiện phishing');
+                    emailDiv.className = 'phishing-email';
+                } else {
+                    addScore(15, 'Xác định email an toàn');
+                    emailDiv.className = 'phishing-email safe-email';
+                }
+            } else {
+                // Wrong answer
+                feedback.style.background = 'rgba(220, 53, 69, 0.2)';
+                feedback.style.border = '2px solid var(--danger-red)';
+                feedback.innerHTML = `
+                    <h4 style="color: var(--danger-red);">❌ Chưa chính xác</h4>
+                    <p>Email này ${currentPhishingEmail.isPhishing ? 'là phishing' : 'an toàn'}!</p>
+                    <h5>Lý do:</h5>
+                    <ul>${currentPhishingEmail.reasons.map(r => `<li>${r}</li>`).join('')}</ul>
+                    <p>Hãy cẩn thận hơn lần sau!</p>
+                `;
+            }
+        }
+
+        function showPhishingTips() {
+            const tips = document.getElementById('phishingTips');
+            tips.style.display = tips.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // 4. Network Security Game
+        let networkNodes = [];
+        let networkGameActive = false;
+        let attacksBlocked = 0;
+        let computersSaved = 0;
+        let securityScore = 100;
+
+        function startNetworkGame() {
+            networkNodes = [];
+            attacksBlocked = 0;
+            computersSaved = 0;
+            securityScore = 100;
+            networkGameActive = true;
+            
+            // Create 25 nodes (5x5 grid)
+            const networkGrid = document.getElementById('networkGrid');
+            networkGrid.innerHTML = '';
+            
+            for (let i = 0; i < 25; i++) {
+                const node = {
+                    id: i,
+                    status: 'safe', // safe, infected, protected
+                    element: null
+                };
+                
+                const nodeElement = document.createElement('div');
+                nodeElement.className = 'network-node';
+                nodeElement.textContent = i + 1;
+                nodeElement.onclick = () => selectNode(i);
+                
+                node.element = nodeElement;
+                networkNodes.push(node);
+                networkGrid.appendChild(nodeElement);
+            }
+            
+            updateNetworkDisplay();
+            
+            // Start random attacks
+            if (networkGameActive) {
+                setTimeout(randomAttack, 3000);
+            }
+        }
+
+        function selectNode(nodeId) {
+            const node = networkNodes[nodeId];
+            if (node.status === 'infected') {
+                // Clean infected node
+                node.status = 'safe';
+                computersSaved++;
+                securityScore = Math.min(100, securityScore + 5);
+                addScore(20, 'Làm sạch máy tính bị nhiễm');
+                showNotification(`Đã làm sạch máy tính ${nodeId + 1}!`, 'success');
+            }
+            updateNetworkDisplay();
+        }
+
+        function randomAttack() {
+            if (!networkGameActive) return;
+            
+            const safeNodes = networkNodes.filter(n => n.status === 'safe');
+            if (safeNodes.length > 0) {
+                const targetNode = safeNodes[Math.floor(Math.random() * safeNodes.length)];
+                
+                // Check if attack is blocked by protected neighbors
+                const neighbors = getNeighbors(targetNode.id);
+                const protectedNeighbors = neighbors.filter(n => networkNodes[n].status === 'protected');
+                
+                if (protectedNeighbors.length > 0 && Math.random() < 0.7) {
+                    // Attack blocked
+                    attacksBlocked++;
+                    addScore(15, 'Chặn tấn công');
+                    showNotification(`Chặn tấn công vào máy ${targetNode.id + 1}!`, 'success');
+                } else {
+                    // Attack successful
+                    targetNode.status = 'infected';
+                    securityScore = Math.max(0, securityScore - 10);
+                    showNotification(`Máy ${targetNode.id + 1} bị nhiễm!`, 'error');
+                }
+            }
+            
+            updateNetworkDisplay();
+            
+            // Schedule next attack
+            if (networkGameActive) {
+                setTimeout(randomAttack, Math.random() * 5000 + 2000);
+            }
+        }
+
+        function getNeighbors(nodeId) {
+            const neighbors = [];
+            const row = Math.floor(nodeId / 5);
+            const col = nodeId % 5;
+            
+            // Check adjacent nodes (up, down, left, right)
+            if (row > 0) neighbors.push((row - 1) * 5 + col); // up
+            if (row < 4) neighbors.push((row + 1) * 5 + col); // down
+            if (col > 0) neighbors.push(row * 5 + (col - 1)); // left
+            if (col < 4) neighbors.push(row * 5 + (col + 1)); // right
+            
+            return neighbors;
+        }
+
+        function deployFirewall() {
+            const safeNodes = networkNodes.filter(n => n.status === 'safe');
+            if (safeNodes.length > 0) {
+                const node = safeNodes[Math.floor(Math.random() * safeNodes.length)];
+                node.status = 'protected';
+                addScore(10, 'Triển khai Firewall');
+                showNotification(`Firewall đã được cài trên máy ${node.id + 1}!`, 'success');
+                updateNetworkDisplay();
+            }
+        }
+
+        function installAntivirus() {
+            const infectedNodes = networkNodes.filter(n => n.status === 'infected');
+            if (infectedNodes.length > 0) {
+                const node = infectedNodes[Math.floor(Math.random() * infectedNodes.length)];
+                node.status = 'safe';
+                computersSaved++;
+                securityScore = Math.min(100, securityScore + 10);
+                addScore(25, 'Cài Antivirus');
+                showNotification(`Antivirus đã làm sạch máy ${node.id + 1}!`, 'success');
+                updateNetworkDisplay();
+            } else {
+                const safeNodes = networkNodes.filter(n => n.status === 'safe');
+                if (safeNodes.length > 0) {
+                    const node = safeNodes[Math.floor(Math.random() * safeNodes.length)];
+                    node.status = 'protected';
+                    addScore(10, 'Cài Antivirus bảo vệ');
+                    updateNetworkDisplay();
+                }
+            }
+        }
+
+        function updateSecurity() {
+            securityScore = Math.min(100, securityScore + 15);
+            addScore(15, 'Cập nhật bảo mật');
+            showNotification('Hệ thống bảo mật đã được cập nhật!', 'success');
+            updateNetworkDisplay();
+        }
+
+        function simulateAttack() {
+            for (let i = 0; i < 3; i++) {
+                setTimeout(randomAttack, i * 1000);
+            }
+        }
+
+        function resetNetwork() {
+            networkGameActive = false;
+            startNetworkGame();
+        }
+
+        function updateNetworkDisplay() {
+            let safeCount = 0;
+            let infectedCount = 0;
+            let protectedCount = 0;
+            
+            networkNodes.forEach(node => {
+                const element = node.element;
+                element.className = 'network-node';
+                
+                switch (node.status) {
+                    case 'safe':
+                        safeCount++;
+                        break;
+                    case 'infected':
+                        element.classList.add('infected');
+                        infectedCount++;
+                        break;
+                    case 'protected':
+                        element.classList.add('protected');
+                        protectedCount++;
+                        break;
+                }
+            });
+            
+            document.getElementById('safeNodes').textContent = safeCount;
+            document.getElementById('infectedNodes').textContent = infectedCount;
+            document.getElementById('protectedNodes').textContent = protectedCount;
+            document.getElementById('attacksBlocked').textContent = attacksBlocked;
+            document.getElementById('computersSaved').textContent = computersSaved;
+            document.getElementById('securityScore').textContent = securityScore;
+        }
+
+        // 5. Hash Race Game
+        let hashRaceActive = false;
+        let hashAttempts = 0;
+        let hashSuccesses = 0;
+        let hashStartTime = 0;
+        let bestTime = null;
+        let currentTargetPrefix = '00';
+
+        function startHashRace() {
+            hashRaceActive = true;
+            hashAttempts = 0;
+            hashStartTime = Date.now();
+            
+            // Generate random target prefix
+            const prefixes = ['0', '00', '000', '1', '11', 'a', 'ab', 'ff'];
+            currentTargetPrefix = prefixes[Math.floor(Math.random() * prefixes.length)];
+            document.getElementById('targetPrefix').textContent = currentTargetPrefix;
+            
+            showNotification(`Hash Race bắt đầu! Tìm hash bắt đầu bằng "${currentTargetPrefix}"`, 'info');
+            updateHashTimer();
+        }
+
+        function calculateHash() {
+            const input = document.getElementById('hashInput').value;
+            if (!input) {
+                showNotification('Vui lòng nhập chuỗi để hash!', 'error');
+                return;
+            }
+
+            hashAttempts++;
+            
+            // Simple SHA-256 implementation (for demo purposes)
+            const hash = simpleHash(input);
+            document.getElementById('hashResult').value = hash;
+            
+            if (hash.startsWith(currentTargetPrefix)) {
+                // Success!
+                hashSuccesses++;
+                const timeElapsed = (Date.now() - hashStartTime) / 1000;
+                
+                if (!bestTime || timeElapsed < bestTime) {
+                    bestTime = timeElapsed;
+                    document.getElementById('bestTime').textContent = timeElapsed.toFixed(2) + 's';
+                }
+                
+                addScore(50 + (currentTargetPrefix.length * 20), 'Tìm thấy hash collision');
+                showNotification(`🎉 Tìm thấy! Hash: ${hash}`, 'success');
+                
+                // Add to history
+                const history = document.getElementById('successfulHashes');
+                const newEntry = document.createElement('div');
+                newEntry.innerHTML = `
+                    <strong>${input}</strong> → ${hash}<br>
+                    <small>Thời gian: ${timeElapsed.toFixed(2)}s, Lần thử: ${hashAttempts}</small>
+                `;
+                newEntry.style.padding = '10px';
+                newEntry.style.margin = '5px 0';
+                newEntry.style.background = 'rgba(40, 167, 69, 0.1)';
+                newEntry.style.borderRadius = '5px';
+                
+                if (history.textContent === 'Chưa có hash nào thành công') {
+                    history.innerHTML = '';
+                }
+                history.appendChild(newEntry);
+                
+                // Start new challenge
+                setTimeout(startHashRace, 2000);
+            }
+            
+            updateHashStats();
+        }
+
+        function autoHashSearch() {
+            if (hashRaceActive) {
+                const randomString = Math.random().toString(36).substring(2);
+                document.getElementById('hashInput').value = randomString;
+                calculateHash();
+                
+                setTimeout(autoHashSearch, 100);
+            }
+        }
+
+        function stopHashRace() {
+            hashRaceActive = false;
+            showNotification('Hash Race đã dừng!', 'info');
+        }
+
+        function updateHashTimer() {
+            if (hashRaceActive) {
+                const elapsed = (Date.now() - hashStartTime) / 1000;
+                const minutes = Math.floor(elapsed / 60);
+                const seconds = Math.floor(elapsed % 60);
+                document.getElementById('hashTimer').textContent = 
+                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                setTimeout(updateHashTimer, 1000);
+            }
+        }
+
+        function updateHashStats() {
+            document.getElementById('hashAttempts').textContent = hashAttempts;
+            document.getElementById('hashSuccesses').textContent = hashSuccesses;
+            
+            if (hashAttempts > 0) {
+                const rate = hashAttempts / ((Date.now() - hashStartTime) / 1000);
+                document.getElementById('hashRate').textContent = rate.toFixed(1);
+            }
+        }
+
+        // Simple hash function for demo
+        function simpleHash(str) {
+            let hash = 0;
+            for (let i = 0; i < str.length; i++) {
+                const char = str.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash; // Convert to 32-bit integer
+            }
+            return Math.abs(hash).toString(16).padStart(8, '0').substring(0, 8);
+        }
+
+        // 6. Social Engineering Defense Game
+        const socialScenarios = [
+            {
+                scenario: `📞 CUỘC GỌI: "Xin chào, tôi là nhân viên IT của công ty. Hệ thống của chúng tôi bị tấn công và tôi cần mật khẩu của bạn để bảo vệ tài khoản ngay lập tức!"`,
+                options: [
+                    { text: 'Cung cấp mật khẩu ngay lập tức', correct: false, reason: 'Không bao giờ cung cấp mật khẩu qua điện thoại!' },
+                    { text: 'Hỏi thông tin liên lạc và gọi lại qua số chính thức', correct: true, reason: 'Đúng! Luôn xác minh danh tính qua kênh chính thức.' },
+                    { text: 'Yêu cầu gửi email xác nhận', correct: false, reason: 'Email cũng có thể bị giả mạo.' },
+                    { text: 'Cung cấp mật khẩu cũ', correct: false, reason: 'Bất kỳ mật khẩu nào cũng không nên chia sẻ.' }
+                ]
+            },
+            {
+                scenario: `📧 EMAIL: "Chúc mừng! Bạn đã trúng giải đặc biệt 100 triệu VND từ chương trình khuyến mại. Click vào link để nhận thưởng: http://lottery-winner.tk/claim"`,
+                options: [
+                    { text: 'Click vào link ngay lập tức', correct: false, reason: 'Link có thể chứa malware hoặc trang giả mạo!' },
+                    { text: 'Chia sẻ tin tức với bạn bè', correct: false, reason: 'Đây có thể là lừa đảo, không nên lan truyền.' },
+                    { text: 'Báo cáo email spam và xóa', correct: true, reason: 'Đúng! Đây là dấu hiệu rõ ràng của lừa đảo.' },
+                    { text: 'Trả lời email để hỏi thêm thông tin', correct: false, reason: 'Không nên tương tác với email lừa đảo.' }
+                ]
+            },
+            {
+                scenario: `💬 MẠNG XÃ HỘI: Một người lạ gửi tin nhắn: "Tôi là bạn của anh/chị X, đang gặp khó khăn tài chính khẩn cấp. Bạn có thể chuyển tiền giúp không? Tôi sẽ trả lại ngay."`,
+                options: [
+                    { text: 'Chuyển tiền ngay để giúp đỡ', correct: false, reason: 'Đây là chiêu trò lừa đảo phổ biến!' },
+                    { text: 'Liên hệ trực tiếp với bạn X để xác minh', correct: true, reason: 'Đúng! Luôn xác minh qua người quen trực tiếp.' },
+                    { text: 'Yêu cầu gặp mặt trực tiếp', correct: false, reason: 'Kẻ lừa đảo sẽ không đồng ý gặp mặt.' },
+                    { text: 'Hỏi thêm thông tin cá nhân', correct: false, reason: 'Không nên tương tác với người lạ đáng ngờ.' }
+                ]
+            },
+            {
+                scenario: `📱 SMS: "TK của ban bi khoa do vi pham. Truy cap ngay: vietcombank-unlock.info/verify de mo khoa. LH: 0123456789"`,
+                options: [
+                    { text: 'Truy cập link ngay lập tức', correct: false, reason: 'Link giả mạo có thể đánh cắp thông tin!' },
+                    { text: 'Gọi số điện thoại trong tin nhắn', correct: false, reason: 'Số điện thoại có thể của kẻ lừa đảo.' },
+                    { text: 'Đến ngân hàng hoặc gọi hotline chính thức', correct: true, reason: 'Đúng! Luôn liên hệ qua kênh chính thức.' },
+                    { text: 'Chuyển tiếp tin nhắn cho bạn bè', correct: false, reason: 'Không nên lan truyền tin nhắn lừa đảo.' }
+                ]
+            }
+        ];
+
+        let currentSocialScenario = null;
+        let attacksDetected = 0;
+        let correctDecisions = 0;
+        let totalDecisions = 0;
+
+        function loadNewSocialScenario() {
+            currentSocialScenario = socialScenarios[Math.floor(Math.random() * socialScenarios.length)];
+            
+            document.getElementById('scenarioContent').textContent = currentSocialScenario.scenario;
+            
+            const optionsContainer = document.getElementById('socialOptions');
+            optionsContainer.innerHTML = '';
+            
+            currentSocialScenario.options.forEach((option, index) => {
+                const optionButton = document.createElement('button');
+                optionButton.className = 'quiz-option';
+                optionButton.textContent = option.text;
+                optionButton.onclick = () => selectSocialOption(index);
+                optionsContainer.appendChild(optionButton);
+            });
+            
+            document.getElementById('socialFeedback').style.display = 'none';
+        }
+
+        function selectSocialOption(optionIndex) {
+            if (!currentSocialScenario) return;
+            
+            const selectedOption = currentSocialScenario.options[optionIndex];
+            const feedback = document.getElementById('socialFeedback');
+            
+            totalDecisions++;
+            
+            feedback.style.display = 'block';
+            
+            if (selectedOption.correct) {
+                correctDecisions++;
+                attacksDetected++;
+                feedback.style.background = 'rgba(40, 167, 69, 0.2)';
+                feedback.style.border = '2px solid var(--success-green)';
+                feedback.innerHTML = `
+                    <h4 style="color: var(--success-green);">✅ Quyết định đúng!</h4>
+                    <p><strong>Lý do:</strong> ${selectedOption.reason}</p>
+                    <p>Bạn đã phòng thủ thành công trước kỹ thuật xã hội!</p>
+                `;
+                addScore(30, 'Phòng thủ kỹ thuật xã hội');
+            } else {
+                feedback.style.background = 'rgba(220, 53, 69, 0.2)';
+                feedback.style.border = '2px solid var(--danger-red)';
+                feedback.innerHTML = `
+                    <h4 style="color: var(--danger-red);">❌ Quyết định chưa tốt</h4>
+                    <p><strong>Lý do:</strong> ${selectedOption.reason}</p>
+                    <p>Hãy cẩn thận hơn với các kỹ thuật xã hội!</p>
+                `;
+            }
+            
+            updateSocialStats();
+            
+            // Disable all options
+            const options = document.querySelectorAll('#socialOptions .quiz-option');
+            options.forEach((option, index) => {
+                option.disabled = true;
+                if (index === optionIndex) {
+                    option.classList.add(selectedOption.correct ? 'correct' : 'incorrect');
+                }
+                if (currentSocialScenario.options[index].correct && index !== optionIndex) {
+                    option.classList.add('correct');
+                }
+            });
+        }
+
+        function updateSocialStats() {
+            document.getElementById('attacksDetected').textContent = attacksDetected;
+            document.getElementById('correctDecisions').textContent = correctDecisions;
+            
+            if (totalDecisions > 0) {
+                const successRate = Math.round((correctDecisions / totalDecisions) * 100);
+                document.getElementById('successRate').textContent = successRate + '%';
+                
+                let alertLevel;
+                if (successRate >= 80) alertLevel = 'Cao';
+                else if (successRate >= 60) alertLevel = 'Trung bình';
+                else alertLevel = 'Thấp';
+                
+                document.getElementById('alertLevel').textContent = alertLevel;
+            }
+        }
+
+        function showSocialTips() {
+            const tips = document.getElementById('socialTips');
+            tips.style.display = tips.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // Cryptographic utility functions
+        async function encryptAES(data, key) {
+            // Simple encryption simulation
+            return btoa(JSON.stringify({
+                data: btoa(data),
+                key: btoa(key.substring(0, 16)),
+                iv: btoa(Math.random().toString())
+            }));
+        }
+
+        async function decryptAES(encryptedData, key) {
+            try {
+                const parsed = JSON.parse(atob(encryptedData));
+                if (atob(parsed.key) === key.substring(0, 16)) {
+                    return atob(parsed.data);
+                } else {
+                    throw new Error('Invalid key');
+                }
+            } catch (error) {
+                throw new Error('Decryption failed');
+            }
+        }
+
+        async function createSHA256Hash(data) {
+            // Simple hash simulation
+            let hash = 0;
+            for (let i = 0; i < data.length; i++) {
+                const char = data.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash;
+            }
+            return Math.abs(hash).toString(16).padStart(64, '0');
+        }
+
+        function detectPhishing(input) {
+            const suspiciousPatterns = [
+                /bit\.ly|tinyurl|t\.co|goo\.gl/i,
+                /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/,
+                /[a-z0-9-]+\.(tk|ml|ga|cf)/i,
+                /(paypal|amazon|google|facebook|microsoft)\w*\.(tk|ml|ga|cf|info|biz)/i,
+                /secure.*update|verify.*account|suspend.*account/i,
+                /urgent.*action.*required|click.*here.*now|congratulations.*winner/i
+            ];
+            
+            let riskScore = 0;
+            const warnings = [];
+            
+            const inputLower = input.toLowerCase();
+            
+            suspiciousPatterns.forEach((pattern, index) => {
+                if (pattern.test(inputLower)) {
+                    riskScore += 20;
+                    switch (index) {
+                        case 0: warnings.push('URL rút gọn có thể ẩn địa chỉ thật'); break;
+                        case 1: warnings.push('Sử dụng địa chỉ IP thay vì tên miền'); break;
+                        case 2: warnings.push('Sử dụng tên miền miễn phí đáng nghi'); break;
+                        case 3: warnings.push('Có thể giả mạo thương hiệu nổi tiếng'); break;
+                        case 4: warnings.push('Chứa từ khóa phishing phổ biến'); break;
+                        case 5: warnings.push('Ngôn từ tạo cảm giác khẩn cấp'); break;
+                    }
+                }
+            });
+            
+            let riskLevel;
+            if (riskScore >= 60) riskLevel = 'Cao';
+            else if (riskScore >= 40) riskLevel = 'Trung bình';
+            else if (riskScore >= 20) riskLevel = 'Thấp';
+            else riskLevel = 'An toàn';
+            
+            return {
+                riskScore: Math.min(riskScore, 100),
+                riskLevel: riskLevel,
+                warnings: warnings,
+                isSuspicious: riskScore >= 40
+            };
+        }
+
+        // Initialize mini games when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            generateCryptoPuzzle();
+            updateLengthDisplay();
+        });
+    </script>
+</body>
+</html>

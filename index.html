@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏦 SecureBank Pro - Game Bảo mật Ngân hàng</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-bank-blue: #003366;
+            --secondary-bank-blue: #004080;
+            --accent-gold: #FFD700;
+            --success-green: #28a745;
+            --dark-bg: #0a1929;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --text-primary: #ffffff;
+            --text-secondary: #b0bec5;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--primary-bank-blue) 50%, var(--dark-bg) 100%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Background particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--accent-gold);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+            box-shadow: 0 0 10px var(--accent-gold);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .header {
+            margin-bottom: 50px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--accent-gold), #fff, var(--accent-gold));
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease-in-out infinite;
+            margin-bottom: 20px;
+            text-shadow: 0 0 30px var(--accent-gold);
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+
+        .description {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #e0e0e0;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            backdrop-filter: blur(10px);
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, var(--card-bg) 0%, rgba(255, 215, 0, 0.05) 100%);
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .feature-card:hover::before {
+            left: 100%;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-gold);
+            box-shadow: 0 20px 40px rgba(255, 215, 0, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+            filter: drop-shadow(0 0 10px currentColor);
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent-gold);
+            margin-bottom: 15px;
+        }
+
+        .feature-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .cta-section {
+            margin: 50px 0;
+            animation: fadeInUp 1s ease-out 0.9s both;
+        }
+
+        .download-btn {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--success-green), #388e3c);
+            color: white;
+            padding: 20px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(40, 167, 69, 0.3);
+            margin: 10px;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(40, 167, 69, 0.4);
+            background: linear-gradient(45deg, #5cbf60, #489e4c);
+        }
+
+        .play-btn {
+            background: linear-gradient(45deg, var(--accent-gold), #ffa500);
+            color: var(--dark-bg);
+        }
+
+        .play-btn:hover {
+            background: linear-gradient(45deg, #fff, var(--accent-gold));
+        }
+
+        .new-features {
+            margin-top: 50px;
+            text-align: left;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            animation: fadeInUp 1s ease-out 1.2s both;
+        }
+
+        .new-features h3 {
+            color: var(--accent-gold);
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .updates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .update-section {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid var(--success-green);
+        }
+
+        .update-section h4 {
+            color: var(--success-green);
+            margin-bottom: 10px;
+        }
+
+        .update-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .update-section li {
+            padding: 5px 0;
+            color: #e0e0e0;
+        }
+
+        .update-section li::before {
+            content: '✅';
+            margin-right: 10px;
+        }
+
+        .mini-games-section {
+            border-left-color: var(--accent-gold);
+        }
+
+        .mini-games-section h4 {
+            color: var(--accent-gold);
+        }
+
+        .mini-games-section li::before {
+            content: '🎮';
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes gradientShift {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+                opacity: 0.8;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2.5rem;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .feature-card {
+                padding: 20px;
+            }
+
+            .updates-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    
+    <div class="container">
+        <div class="header">
+            <h1 class="title">🏦 SecureBank Pro</h1>
+            <p class="subtitle">Game Bảo mật Ngân hàng Chuyên nghiệp - Phiên bản Nâng cấp</p>
+        </div>
+
+        <div class="description">
+            <h2>🎯 Giới thiệu Game</h2>
+            <p>
+                <strong>SecureBank Pro</strong> là trò chơi giáo dục mô phỏng hệ thống bảo mật ngân hàng hiện đại, 
+                được nâng cấp hoàn toàn với <strong>6 mini games tương tác mới</strong> và 
+                <strong>thuật toán mã hóa được cải tiến</strong>. 
+            </p>
+            <br>
+            <p>
+                Người chơi sẽ đóng vai chuyên viên bảo mật, thực hiện giao dịch an toàn bằng 
+                <strong>AES-256, RSA-2048, SHA-256</strong> và trải nghiệm các thử thách cybersecurity thực tế.
+            </p>
+        </div>
+
+        <div class="new-features">
+            <h3>🆕 Tính năng mới trong phiên bản này</h3>
+            <div class="updates-grid">
+                <div class="update-section">
+                    <h4>🔧 Debug và Cải tiến</h4>
+                    <ul>
+                        <li>Fixed AES encryption UTF-8 handling</li>
+                        <li>Enhanced error handling</li>
+                        <li>Improved input validation</li>
+                        <li>Optimized crypto performance</li>
+                        <li>Better UI/UX animations</li>
+                    </ul>
+                </div>
+                <div class="update-section mini-games-section">
+                    <h4>🎮 6 Mini Games Mới</h4>
+                    <ul>
+                        <li>Password Strength Game</li>
+                        <li>Crypto Puzzle (Caesar, Vigenere)</li>
+                        <li>Phishing Detection</li>
+                        <li>Network Security Defense</li>
+                        <li>Hash Race Challenge</li>
+                        <li>Social Engineering Defense</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="features">
+            <div class="feature-card">
+                <span class="feature-icon">🔐</span>
+                <h3 class="feature-title">Mã hóa AES/RSA Cải tiến</h3>
+                <p class="feature-description">
+                    Thuật toán AES-256 và RSA-2048 được fix lỗi và tối ưu hóa. 
+                    Xử lý UTF-8 hoàn hảo, error handling toàn diện.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <span class="feature-icon">🎮</span>
+                <h3 class="feature-title">6 Mini Games Tương tác</h3>
+                <p class="feature-description">
+                    Từ tạo mật khẩu mạnh đến phát hiện phishing, mỗi game dạy 
+                    một khía cạnh quan trọng của cybersecurity.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <span class="feature-icon">🛡️</span>
+                <h3 class="feature-title">Phòng thủ Thực tế</h3>
+                <p class="feature-description">
+                    Mô phỏng các tình huống tấn công thực tế: phishing, social engineering, 
+                    network attacks và cách phòng thủ hiệu quả.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <span class="feature-icon">🏆</span>
+                <h3 class="feature-title">Hệ thống Tiến độ</h3>
+                <p class="feature-description">
+                    10+ levels với độ khó tăng dần, điểm thưởng, achievements 
+                    và hệ thống streak để duy trì động lực học tập.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <span class="feature-icon">🎨</span>
+                <h3 class="feature-title">Giao diện Hiện đại</h3>
+                <p class="feature-description">
+                    Theme ngân hàng chuyên nghiệp với particles animation, 
+                    gradient động và responsive design cho mọi thiết bị.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <span class="feature-icon">📚</span>
+                <h3 class="feature-title">Giáo dục Toàn diện</h3>
+                <p class="feature-description">
+                    Học về mã hóa, bảo mật mạng, phishing detection, password security 
+                    thông qua gameplay thú vị và tương tác.
+                </p>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <a href="securebank_pro.html" class="download-btn play-btn">🎮 Chơi ngay (Web)</a>
+            <a href="main.py" class="download-btn" download>💻 Tải phiên bản Desktop</a>
+        </div>
+
+        <div class="new-features">
+            <h3>⚙️ Hướng dẫn Cài đặt</h3>
+            <div class="updates-grid">
+                <div class="update-section">
+                    <h4>🌐 Phiên bản Web (Khuyến nghị)</h4>
+                    <ul>
+                        <li>Mở file securebank_pro.html</li>
+                        <li>Hoặc chạy: python -m http.server 8000</li>
+                        <li>Không cần cài đặt thêm</li>
+                        <li>Tương thích mọi trình duyệt</li>
+                    </ul>
+                </div>
+                <div class="update-section">
+                    <h4>💻 Phiên bản Desktop</h4>
+                    <ul>
+                        <li>Cài Python 3.8+</li>
+                        <li>pip install -r python_requirements.txt</li>
+                        <li>python main.py</li>
+                        <li>Xem VSCODE_SETUP.md cho chi tiết</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Initialize particles when page loads
+        document.addEventListener('DOMContentLoaded', createParticles);
+    </script>
+</body>
+</html>

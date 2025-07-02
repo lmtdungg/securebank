@@ -1,0 +1,10 @@
+{
+  "totalScore": 25,
+  "currentLevel": 1,
+  "completedTransactions": 0,
+  "achievements": 0,
+  "streak": 0,
+  "currentAESKey": "",
+  "currentOTP": "",
+  "transactionHistory": []
+}
